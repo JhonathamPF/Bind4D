@@ -37,6 +37,7 @@ type
       class function FormatarMoeda(valor: string): string;
       class function FormataPercentual(valor: string): string;
       class function FormatarCelular(valor : string) : string;
+      class function FormataTelefoneouCelular(valor : string) : string;
       class function ApenasNumeros(valor : String) : String;
       class function SendImageS3Storage( var aImage : TImage; aAttr : S3Storage) : String;
       class procedure GetImageS3Storage (aImage : TImage; aName : String);
@@ -45,6 +46,7 @@ type
       class function SendImageHS4DStorage(var aImage : TImage; aAttr : HorseStorage) : string;
       class procedure GetImageHS4DStorage (aImage : TImage; aName : String);
       class function GetZipCode4B(aZipCode: string): TJsonObject;
+
   end;
 implementation
 uses
@@ -63,12 +65,11 @@ class function TBind4DUtils.ApenasNumeros(valor: String): String;
 var
   i: Integer;
 begin
-  for i := 0 to Length(valor) - 1 do
-    if not CharInSet(valor[i], ['0' .. '9']) then
-      delete(valor, i, 1);
-  valor := StringReplace(valor, ' ', '', [rfReplaceAll]);
-  valor := StringReplace(valor, '%', '', [rfReplaceAll]);
-  Result := valor;
+  for I := 1 to Length(valor) do
+    begin
+      if (CharInSet(valor[I],['0'..'9'])) then
+        Result := Result + Copy(valor, I, 1);
+    end;
 end;
 class function TBind4DUtils.ExtrairMoeda(aValue: String): String;
 begin
@@ -264,6 +265,29 @@ begin
   Result := '(' + Copy(valor, 1, 2) + ') ' + Copy(valor, 3, 4) + '-' + Copy(valor, 7, 4);
 
 end;
+class function TBind4DUtils.FormataTelefoneouCelular(valor : string): string;
+begin
+ valor := ApenasNumeros(valor);
+
+ if Length(valor)<10 then
+  valor := StringOfChar('0', 10-Length(valor)) + valor;
+
+if Length(valor) = 10 then
+  begin
+      Result:='('+Copy(valor, 1,2)
+                + ')' + Copy(valor, 3,4)
+                +'-' +Copy(valor,7,4);
+  end;
+  if Length(valor)=11 then
+  begin
+     Result:='('+Copy(valor, 1,2)
+     + ')'
+     +Copy(valor,3,1) +'.'
+     + Copy(valor, 4,4)
+     +'-' +Copy(valor,8,4);
+  end;
+end;
+
 class function TBind4DUtils.FormatDateDataSet(aValue: String): String;
 var
   i: Integer;
@@ -377,7 +401,7 @@ begin
   Result := EmptyStr;
   aux := ApenasNumeros(Valor);
   ValorFloat := 0.0;
-  ValorInteiro := 0;
+  //ValorInteiro := 0;
   if aux <> '' then
   begin
     aux := RightStr(aux,4);

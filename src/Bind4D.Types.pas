@@ -3,7 +3,7 @@ unit Bind4D.Types;
 interface
 
 type
-  TEspecialType = (teNull, teCoin, teCell, teDate, teDateTime, teCPF, teCNPJ, teCEP, tePhone, tePercent);
+  TEspecialType = (teNull, teCoin, teCell, teDate, teDateTime, teCPF, teCNPJ, teCEP, tePhone, tePercent, tePhoneOrCell);
   TTypeBindFormJson = (fbGet, fbPost, fbPut, fbDelete);
   TTypeBindZipCode = (zcNull, zcCEP, zcLogradouro, zcComplemento, zcBairro, zcCidade, zcEstado, zcIBGE, zcDDD);
 
