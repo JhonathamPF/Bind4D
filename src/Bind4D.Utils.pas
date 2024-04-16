@@ -63,16 +63,12 @@ class function TBind4DUtils.ApenasNumeros(valor: String): String;
 var
   i: Integer;
 begin
-
   for i := 0 to Length(valor) - 1 do
     if not CharInSet(valor[i], ['0' .. '9']) then
       delete(valor, i, 1);
-
   valor := StringReplace(valor, ' ', '', [rfReplaceAll]);
   valor := StringReplace(valor, '%', '', [rfReplaceAll]);
-
   Result := valor;
-
 end;
 class function TBind4DUtils.ExtrairMoeda(aValue: String): String;
 begin
@@ -126,7 +122,6 @@ begin
   end;
   Result := Copy(valor, 1, 5) + '-' + Copy(valor, 6, 3);
 end;
-
 class function TBind4DUtils.FormatarCNPJ(valor: string): string;
 var
   i: Integer;
@@ -243,7 +238,6 @@ begin
   else
     Result := LeftStr(valor, Length(valor) - 2) + ',' + decimais;
   end;
-
 end;
 class function TBind4DUtils.FormatarPhone(valor: string): string;
 var
@@ -269,9 +263,7 @@ begin
   end;
   Result := '(' + Copy(valor, 1, 2) + ') ' + Copy(valor, 3, 4) + '-' + Copy(valor, 7, 4);
 
-
 end;
-
 class function TBind4DUtils.FormatDateDataSet(aValue: String): String;
 var
   i: Integer;
@@ -386,11 +378,9 @@ begin
   aux := ApenasNumeros(Valor);
   ValorFloat := 0.0;
   ValorInteiro := 0;
-
   if aux <> '' then
   begin
     aux := RightStr(aux,4);
-
     ValorInteiro := StrToInt(aux);
     ValorFloat := ValorInteiro / 100;
   end;
@@ -460,7 +450,6 @@ begin
       .Get(aImage);
   end;
 end;
-
 class procedure TBind4DUtils.GetImageS3Storage(aImage : TImage; aName : String);
 begin
   if Trim(aName) <> '' then
@@ -547,7 +536,6 @@ begin
     {$ENDIF}
   end;
 end;
-
 class function TBind4DUtils.SendImageS3Storage( var aImage : TImage; aAttr : S3Storage) : String;
 var
   aImageName: string;

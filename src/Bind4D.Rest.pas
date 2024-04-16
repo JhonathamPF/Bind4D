@@ -17,7 +17,8 @@ uses
     FireDAC.Comp.DataSet,
     FireDAC.Comp.Client,
     System.Generics.Collections,
-    System.JSON;
+    System.JSON,
+    DataSet.Serialize.Adapter.RESTRequest4D;
 
 type
   TBind4DRest = class(TInterfacedObject, iBind4DRest)
@@ -78,7 +79,7 @@ begin
   .BaseURL(aURL)
    .Accept('application/json')
    .Token(FToken)
-   .DataSetAdapter(FDataSet)
+   .Adapters(TDataSetSerializeAdapter.New(FDataSet))
   .Get;
 
   FParam.Clear;

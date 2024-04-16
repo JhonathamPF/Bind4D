@@ -42,7 +42,8 @@ requires
   FireDACCommon,
   IndySystem,
   IndyCore,
-  IndyProtocols;
+  IndyProtocols,
+  vclx;
 
 contains
   Bind4D.Attributes in 'src\Bind4D.Attributes.pas',
@@ -84,6 +85,7 @@ contains
   Bind4D.Forms.QuickRegistration in 'src\Forms\Bind4D.Forms.QuickRegistration.pas',
   Bind4D.Component.Styles in 'src\Bind4D.Component.Styles.pas',
   Bind4D.Component.ListBox in 'src\Bind4D.Component.ListBox.pas',
-  Bind4D.Component.CheckListBox in 'src\Bind4D.Component.CheckListBox.pas';
+  Bind4D.Component.CheckListBox in 'src\Bind4D.Component.CheckListBox.pas',
+  Bind4D.Component.Memo in 'src\Bind4D.Component.Memo.pas';
 
 end.
