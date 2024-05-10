@@ -269,23 +269,25 @@ class function TBind4DUtils.FormataTelefoneouCelular(valor : string): string;
 begin
  valor := ApenasNumeros(valor);
 
- if Length(valor)<10 then
-  valor := StringOfChar('0', 10-Length(valor)) + valor;
+if Length(valor)>11 then
+ Delete(Valor,1,1);
 
 if Length(valor) = 10 then
   begin
       Result:='('+Copy(valor, 1,2)
                 + ')' + Copy(valor, 3,4)
                 +'-' +Copy(valor,7,4);
-  end;
-  if Length(valor)=11 then
+  end
+  else if Length(valor)=11 then
   begin
      Result:='('+Copy(valor, 1,2)
      + ')'
      +Copy(valor,3,1) +'.'
      + Copy(valor, 4,4)
      +'-' +Copy(valor,8,4);
-  end;
+  end
+  else
+    Result:= Valor;
 end;
 
 class function TBind4DUtils.FormatDateDataSet(aValue: String): String;
